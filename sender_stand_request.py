@@ -11,7 +11,7 @@ def get_logs():
     url = configuration.URL_SERVICE + configuration.LOG_MAIN_PATH
     
     # Отправляем GET-запрос
-    response = requests.get(url)
+    response = requests.get(url, params={"count": 20})
     
     # Возвращаем ответ
     return response
