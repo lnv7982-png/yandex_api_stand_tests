@@ -1,23 +1,15 @@
-# Импорт настроек из модуля configuration
-import configuration
-
-# Импорт библиотеки requests для выполнения HTTP-запросов
 import requests
-
-# Импорт данных запроса из модуля data (заголовки и тело запроса)
+import configuration
 import data
+# Функция для отправки POST-запроса на поиск наборов по продуктам
+def post_products_kits(products_ids):
+    return requests.post(configuration.URL_SERVICE + configuration.PRODUCTS_KITS_PATH,
+                         json=products_ids)
 
 
-# Функция для отправки POST-запроса на создание нового пользователя
-def post_new_user(body):
-    return requests.post(configuration.URL_SERVICE + configuration.CREATE_USER_PATH,
-                         json=body,
-                         headers=data.headers)
+# Вызов функции с передачей списка ID продуктов из файла data.py
+response = post_products_kits(data.products_ids)
 
-
-# Вызов функции post_new_user с телом запроса из модуля data
-response = post_new_user(data.user_body)
-
-# Вывод HTTP-статус кода ответа на запрос
+# Вывод HTTP-статус кода ответа и тела ответа в формате JSON
 print(response.status_code)
 print(response.json())
