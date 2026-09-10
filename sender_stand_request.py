@@ -20,3 +20,4 @@ response = post_new_user(data.user_body)
 
 # Вывод HTTP-статус кода ответа на запрос
 print(response.status_code)
+print(response.json())
