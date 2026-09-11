@@ -24,12 +24,12 @@ def positive_assert(first_name):
     assert users_table_response.text.count(str_user) == 1
 
 
-# Тест 5. Успешное создание пользователя
-# Параметр firstName состоит из английских букв
-def test_create_user_english_letter_in_first_name_get_success_response():
-    positive_assert("QWErty")
+# Тест 6. Успешное создание пользователя
+# Параметр firstName состоит из русских букв
+def test_create_user_russian_letter_in_first_name_get_success_response():
+    positive_assert("Мария")
 
 
-# Запускаем тест 5
-test_create_user_english_letter_in_first_name_get_success_response()
-print("✓ Позитивный тест 5 (английские буквы) пройден успешно!")
+# Запускаем тест 6
+test_create_user_russian_letter_in_first_name_get_success_response()
+print("✓ Позитивный тест 6 (русские буквы) пройден успешно!")
