@@ -38,3 +38,11 @@ user_body.pop("firstName")  # удаляем поле firstName
 # Вызываем функцию
 negative_assert_no_first_name(user_body)
 print("✓ Тест пройден успешно!")
+
+# Тест 11. Ошибка 
+# Параметр firstName состоит из пустой строки
+def test_create_user_empty_first_name_get_error_response():
+    # В переменную user_body сохраняется обновлённое тело запроса
+    user_body = get_user_body("")
+    # Проверка полученного ответа
+    negative_assert_no_first_name(user_body)
