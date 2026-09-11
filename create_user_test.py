@@ -21,12 +21,12 @@ def negative_assert_symbol(first_name):
                                          "длина должна быть не менее 2 и не более 15 символов"
 
 
-# Тест 7. Ошибка
-# Параметр firstName состоит из слов с пробелами
-def test_create_user_has_space_in_first_name_get_error_response():
-    negative_assert_symbol("Человек и КО")
+# Тест 8. Ошибка
+# Параметр firstName состоит из строки спецсимволов
+def test_create_user_has_special_symbol_in_first_name_get_error_response():
+    negative_assert_symbol("№%@")
 
 
-# Запускаем тест 7
-test_create_user_has_space_in_first_name_get_error_response()
-print("✓ Негативный тест 7 (пробелы в имени) пройден успешно!")
+# Запускаем тест 8
+test_create_user_has_special_symbol_in_first_name_get_error_response()
+print("✓ Негативный тест 8 (спецсимволы в имени) пройден успешно!")
