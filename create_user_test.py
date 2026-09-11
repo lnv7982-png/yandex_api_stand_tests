@@ -9,27 +9,24 @@ def get_user_body(first_name):
     return current_body
 
 
-# Функция для позитивной проверки
-def positive_assert(first_name):
+# Функция для негативной проверки
+def negative_assert_symbol(first_name):
     user_body = get_user_body(first_name)
-    user_response = sender_stand_request.post_new_user(user_body)
+    response = sender_stand_request.post_new_user(user_body)
 
-    assert user_response.status_code == 201
-    assert user_response.json()["authToken"] != ""
-
-    users_table_response = sender_stand_request.get_users_table()
-    str_user = user_body["firstName"] + "," + user_body["phone"] + "," \
-               + user_body["address"] + ",,," + user_response.json()["authToken"]
-
-    assert users_table_response.text.count(str_user) == 1
+    assert response.status_code == 400
+    assert response.json()["code"] == 400
+    assert response.json()["message"] == "Имя пользователя введено некорректно. " \
+                                         "Имя может содержать только русские или латинские буквы, " \
+                                         "длина должна быть не менее 2 и не более 15 символов"
 
 
-# Тест 6. Успешное создание пользователя
-# Параметр firstName состоит из русских букв
-def test_create_user_russian_letter_in_first_name_get_success_response():
-    positive_assert("Мария")
+# Тест 7. Ошибка
+# Параметр firstName состоит из слов с пробелами
+def test_create_user_has_space_in_first_name_get_error_response():
+    negative_assert_symbol("Человек и КО")
 
 
-# Запускаем тест 6
-test_create_user_russian_letter_in_first_name_get_success_response()
-print("✓ Позитивный тест 6 (русские буквы) пройден успешно!")
+# Запускаем тест 7
+test_create_user_has_space_in_first_name_get_error_response()
+print("✓ Негативный тест 7 (пробелы в имени) пройден успешно!")
