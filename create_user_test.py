@@ -9,32 +9,27 @@ def get_user_body(first_name):
     return current_body
 
 
-# Функция для негативной проверки
-def negative_assert_symbol(first_name):
-    # В переменную user_body сохраняется обновлённое тело запроса
+# Функция для позитивной проверки
+def positive_assert(first_name):
     user_body = get_user_body(first_name)
+    user_response = sender_stand_request.post_new_user(user_body)
 
-    # В переменную response сохраняется результат запроса
-    response = sender_stand_request.post_new_user(user_body)
+    assert user_response.status_code == 201
+    assert user_response.json()["authToken"] != ""
 
-    # Проверка, что код ответа равен 400
-    assert response.status_code == 400
+    users_table_response = sender_stand_request.get_users_table()
+    str_user = user_body["firstName"] + "," + user_body["phone"] + "," \
+               + user_body["address"] + ",,," + user_response.json()["authToken"]
 
-    # Проверка, что в теле ответа атрибут "code" равен 400
-    assert response.json()["code"] == 400
-    
-    # Проверка текста в теле ответа в атрибуте "message"
-    assert response.json()["message"] == "Имя пользователя введено некорректно. " \
-                                         "Имя может содержать только русские или латинские буквы, " \
-                                         "длина должна быть не менее 2 и не более 15 символов"
+    assert users_table_response.text.count(str_user) == 1
 
 
-# Тест 4. Ошибка
-# Параметр firstName состоит из 16 символов
-def test_create_user_16_letter_in_first_name_get_error_response():
-    negative_assert_symbol("Аааааааааааааааa")
+# Тест 5. Успешное создание пользователя
+# Параметр firstName состоит из английских букв
+def test_create_user_english_letter_in_first_name_get_success_response():
+    positive_assert("QWErty")
 
 
-# Запускаем тест 4
-test_create_user_16_letter_in_first_name_get_error_response()
-print("✓ Негативный тест 4 (16 символов) пройден успешно!")
+# Запускаем тест 5
+test_create_user_english_letter_in_first_name_get_success_response()
+print("✓ Позитивный тест 5 (английские буквы) пройден успешно!")
