@@ -29,12 +29,12 @@ def negative_assert_symbol(first_name):
                                          "длина должна быть не менее 2 и не более 15 символов"
 
 
-# Тест 3. Ошибка
-# Параметр firstName состоит из 1 символа
-def test_create_user_1_letter_in_first_name_get_error_response():
-    negative_assert_symbol("А")
+# Тест 4. Ошибка
+# Параметр firstName состоит из 16 символов
+def test_create_user_16_letter_in_first_name_get_error_response():
+    negative_assert_symbol("Аааааааааааааааa")
 
 
-# Запускаем тест
-test_create_user_1_letter_in_first_name_get_error_response()
-print("✓ Тест 3 (1 символ) пройден успешно!")
+# Запускаем тест 4
+test_create_user_16_letter_in_first_name_get_error_response()
+print("✓ Негативный тест 4 (16 символов) пройден успешно!")
