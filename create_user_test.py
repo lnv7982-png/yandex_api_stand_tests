@@ -21,12 +21,12 @@ def negative_assert_symbol(first_name):
                                          "длина должна быть не менее 2 и не более 15 символов"
 
 
-# Тест 8. Ошибка
-# Параметр firstName состоит из строки спецсимволов
-def test_create_user_has_special_symbol_in_first_name_get_error_response():
-    negative_assert_symbol("№%@")
+# Тест 9. Ошибка
+# Параметр firstName состоит из строки с цифрами
+def test_create_user_has_number_in_first_name_get_error_response():
+    negative_assert_symbol("123")
 
 
-# Запускаем тест 8
-test_create_user_has_special_symbol_in_first_name_get_error_response()
-print("✓ Негативный тест 8 (спецсимволы в имени) пройден успешно!")
+# Запускаем тест 9
+test_create_user_has_number_in_first_name_get_error_response()
+print("✓ Негативный тест 9 (цифры в имени) пройден успешно!")
