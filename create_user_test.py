@@ -29,17 +29,15 @@ def negative_assert_no_first_name(user_body):
     print(f"Сообщение из ответа: {response.json()['message']}")
 
 
-# Тест 10. Ошибка
-# В запросе нет параметра firstName
-def test_create_user_no_first_name_get_error_response():
-    # Копируется словарь с телом запроса из файла data в переменную user_body
-    user_body = data.user_body.copy()
-    # Удаление параметра firstName из запроса
-    user_body.pop("firstName")
+# Тест 11. Ошибка
+# Параметр firstName состоит из пустой строки
+def test_create_user_empty_first_name_get_error_response():
+    # В переменную user_body сохраняется обновлённое тело запроса
+    user_body = get_user_body("")
     # Проверка полученного ответа
     negative_assert_no_first_name(user_body)
 
 
-# Запускаем тест 10
-test_create_user_no_first_name_get_error_response()
-print("✓ Тест 10 (нет firstName) пройден успешно!")
+# Запускаем тест 11
+test_create_user_empty_first_name_get_error_response()
+print("✓ Тест 11 (пустой firstName) пройден успешно!")
