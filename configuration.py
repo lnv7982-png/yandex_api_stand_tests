@@ -1,7 +1,7 @@
 # URL_SERVICE хранит базовый URL веб-сервиса
 # ЗАМЕНИ 'https://твой-url-из-урока' на реальную ссылку из текста урока Яндекс Практикума!
 # Важно: в конце не должно быть слеша (/)
-URL_SERVICE = "https://4cf3002e-16b3-4876-86d1-b298e862a841.serverhub.praktikum-services.ru"
+URL_SERVICE = " https://9717ccd5-5e4f-41bc-8c2a-e48bb92a8b05.serverhub.praktikum-services.ru"
 
 # DOC_PATH содержит путь к документации веб-сервиса
 DOC_PATH = "/docs/"
