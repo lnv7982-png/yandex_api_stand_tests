@@ -10,23 +10,36 @@ def get_user_body(first_name):
 
 
 # Функция для негативной проверки
-def negative_assert_symbol(first_name):
-    user_body = get_user_body(first_name)
+# В ответе ошибка: "Не все необходимые параметры были переданы"
+def negative_assert_no_first_name(user_body):
+    # В переменную response сохрани результат вызова функции
     response = sender_stand_request.post_new_user(user_body)
 
+    # Проверь, что код ответа — 400
     assert response.status_code == 400
+
+    # Проверь, что в теле ответа атрибут "code" — 400
     assert response.json()["code"] == 400
-    assert response.json()["message"] == "Имя пользователя введено некорректно. " \
-                                         "Имя может содержать только русские или латинские буквы, " \
-                                         "длина должна быть не менее 2 и не более 15 символов"
+
+    # Проверь текст в теле ответа в атрибуте "message"
+    assert response.json()["message"] == "Не все необходимые параметры были переданы"
+
+    print(f"Код ответа: {response.status_code}")
+    print(f"Всё тело ответа: {response.json()}")
+    print(f"Сообщение из ответа: {response.json()['message']}")
 
 
-# Тест 9. Ошибка
-# Параметр firstName состоит из строки с цифрами
-def test_create_user_has_number_in_first_name_get_error_response():
-    negative_assert_symbol("123")
+# Тест 10. Ошибка
+# В запросе нет параметра firstName
+def test_create_user_no_first_name_get_error_response():
+    # Копируется словарь с телом запроса из файла data в переменную user_body
+    user_body = data.user_body.copy()
+    # Удаление параметра firstName из запроса
+    user_body.pop("firstName")
+    # Проверка полученного ответа
+    negative_assert_no_first_name(user_body)
 
 
-# Запускаем тест 9
-test_create_user_has_number_in_first_name_get_error_response()
-print("✓ Негативный тест 9 (цифры в имени) пройден успешно!")
+# Запускаем тест 10
+test_create_user_no_first_name_get_error_response()
+print("✓ Тест 10 (нет firstName) пройден успешно!")
