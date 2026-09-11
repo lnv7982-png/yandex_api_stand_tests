@@ -12,32 +12,34 @@ def get_user_body(first_name):
 # Функция для негативной проверки
 # В ответе ошибка: "Не все необходимые параметры были переданы"
 def negative_assert_no_first_name(user_body):
-    # В переменную response сохрани результат вызова функции
     response = sender_stand_request.post_new_user(user_body)
-
-    # Проверь, что код ответа — 400
-    assert response.status_code == 400
-
-    # Проверь, что в теле ответа атрибут "code" — 400
-    assert response.json()["code"] == 400
-
-    # Проверь текст в теле ответа в атрибуте "message"
-    assert response.json()["message"] == "Не все необходимые параметры были переданы"
 
     print(f"Код ответа: {response.status_code}")
     print(f"Всё тело ответа: {response.json()}")
     print(f"Сообщение из ответа: {response.json()['message']}")
 
-
-# Тест 11. Ошибка
-# Параметр firstName состоит из пустой строки
-def test_create_user_empty_first_name_get_error_response():
-    # В переменную user_body сохраняется обновлённое тело запроса
-    user_body = get_user_body("")
-    # Проверка полученного ответа
-    negative_assert_no_first_name(user_body)
+    assert response.status_code == 400
+    assert response.json()["code"] == 400
+    assert response.json()["message"] == "Не все необходимые параметры были переданы"
 
 
-# Запускаем тест 11
-test_create_user_empty_first_name_get_error_response()
-print("✓ Тест 11 (пустой firstName) пройден успешно!")
+# Функция для негативной проверки кода ответа
+def negative_assert_status_code(user_body, expected_code):
+    response = sender_stand_request.post_new_user(user_body)
+    
+    print(f"Код ответа: {response.status_code}")
+    print(f"Ожидаемый код: {expected_code}")
+    
+    assert response.status_code == expected_code
+
+
+# Тест 12. Ошибка
+# Тип параметра firstName: число
+def test_create_user_number_type_first_name_get_error_response():
+    user_body = get_user_body(12)
+    negative_assert_status_code(user_body, 400)
+
+
+# Запускаем тест 12
+test_create_user_number_type_first_name_get_error_response()
+print("✓ Тест 12 (число в firstName) пройден успешно!")
